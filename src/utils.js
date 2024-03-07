@@ -28,19 +28,19 @@ const storage = multer.diskStorage({
         let folderPath = null;
         switch (typeFile) {
             case 'Identificacion':
-                folderPath = path.join('https://',__dirname, '/public/documents');
+                folderPath = path.join(__dirname, '/public/documents');
                 break;
             case 'Domicilio':
-                folderPath = path.join('https://',__dirname, '/public/documents');
+                folderPath = path.join(__dirname, '/public/documents');
                 break;
             case 'Estado de cuenta':
-                folderPath = path.join('https://',__dirname, '/public/documents');
+                folderPath = path.join(__dirname, '/public/documents');
                 break;
             case 'avatar':
-                folderPath = path.join('https://',__dirname, '/public/profile');
+                folderPath = path.join(__dirname, '/public/profile');
                 break;
             case 'products':
-                folderPath = path.join('https://',__dirname, '/public/img');
+                folderPath = path.join(__dirname, '/public/img');
                 break;
             default:
                 throw new Exception('Archivo incorrecto');
