@@ -96,7 +96,7 @@ export const jwtAuth = (req, res ,next) =>{
     })
 }
 
-export const jwtAuthBear = (req, res, next) => {
+/* export const jwtAuthBear = (req, res, next) => {
     const token = req.headers.authorization && req.headers.authorization.split(' ')[1]; 
     
     if (!token) {
@@ -122,7 +122,7 @@ export const jwtAuthBear = (req, res, next) => {
             return res.status(500).json({ error: 'Internal Server Error' });
         }
     });
-};
+}; */
 
 export const generateProduct = () => {
     return {

@@ -6,10 +6,10 @@ import { config } from "../config/config.js";
 
 export class UserInactiveProcess {
   constructor() {}
-
+//"*/5 * * * *" Para que llame  cada 5 minutos
   run() {
     cron.schedule(
-      "*/5 * * * *", // Ejecutar cada 5 minutos
+      "0 0 * * *", // Ejecutar cada 5 minutos
       async () => {
         try {
           console.log("Corriendo el cron");
