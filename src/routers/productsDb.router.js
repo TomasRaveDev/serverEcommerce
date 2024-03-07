@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { uploader, jwtAuth, jwtAuthBear } from "../utils.js";
+import { uploader, jwtAuth } from "../utils.js";
 import productController from "../controllers/product.controller.js";
 import EnumsError from "../utils/EnumsError.js";
 import { CustomError } from "../utils/CustomError.js";
@@ -173,6 +173,7 @@ router.delete("/products/:pid", /* jwtAuth, */ async (req, res, next) => {
 
     let rolUser;
     let emailUser;
+    let username;
 
     if(req.user){
       const { rol, email } = req.user;
@@ -181,8 +182,10 @@ router.delete("/products/:pid", /* jwtAuth, */ async (req, res, next) => {
     }else{
       const userOwner = await productController.getById(pid);
       const userData = await userController.findUserByEmail(userOwner.owner);
+
       rolUser = userData.rol;
       emailUser = userData.email;
+      username = userData.username;
     }
    
     const product = await productController.getById(pid);
@@ -205,10 +208,10 @@ router.delete("/products/:pid", /* jwtAuth, */ async (req, res, next) => {
 
     //Envio de email
 
-    if (userData.rol === "premium") {
+    if (rolUser === "premium") {
       const result = await emailService.sendEmail(
-        userData.email,
-        userData.username,
+        emailUser,
+        username,
         `
                       <!DOCTYPE html>
                       <html lang="en">
