@@ -9,12 +9,7 @@ export class UserInactiveProcess {
 //"*/5 * * * *" Para que llame  cada 5 minutos
   run() {
     cron.schedule(
-<<<<<<< HEAD
-      "0 0 * * *", // Ejecutar cada 5 minutos
-=======
-      "0 0 * * *", // Ejecutar una vez al dia
->>>>>>> ca3131ff942fab4c22ce1dd97d28608d2acc465b
-      async () => {
+      "0 0 * * *", async () => {
         try {
           console.log("Corriendo el cron");
           const URL = config.URL || "http://localhost:8080";
