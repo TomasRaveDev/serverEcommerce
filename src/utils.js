@@ -22,7 +22,7 @@ export default class Exception extends Error {
     }
 }
 
-const storage = multer.diskStorage({
+/* const storage = multer.diskStorage({
     destination: (req, file, cb) =>{
         const { params: { typeFile }} = req;
         let folderPath = null;
@@ -54,7 +54,41 @@ const storage = multer.diskStorage({
     }
 });
 
+export const uploader = multer({storage}); */
+
+const storage = multer.diskStorage({
+    destination: async (req, file, cb) =>{
+        const { params: { typeFile }} = req;
+        let folderPath = null;
+       
+        switch (typeFile) {
+            case 'Identificacion':
+            case 'Domicilio':
+            case 'Estado de cuenta':
+                folderPath = path.join(process.cwd(), 'src/public/documents');
+                break;
+            case 'avatar':
+                folderPath = path.join(process.cwd(), 'src/public/profile');
+                break;
+            case 'products':
+                folderPath = path.join(process.cwd(), 'src/public/img');
+                break;
+            default:
+                throw new Error('Archivo incorrecto');
+        }
+        console.log(folderPath);
+        fs.mkdir(folderPath, {recursive: true});
+        cb(null, folderPath)
+    },
+    filename: (req, file, cb) =>{
+        const filname = `${Date.now()}-${file.originalname}`;
+        cb(null, filname);
+    }
+});
+
 export const uploader = multer({storage});
+
+
 
 export const createHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
