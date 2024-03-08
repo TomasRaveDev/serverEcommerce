@@ -60,3 +60,5 @@
 {"level":"error","storageErrors":[]}
 {"level":"error","storageErrors":[]}
 {"level":"error","storageErrors":[]}
+{"code":"ENOENT","errno":-4058,"level":"error","path":"C:\\Users\\Usuario\\Desktop\\CoderHouse\\Curso Backend\\server - copia\\src\\views\\layouts\\main.handlebars","syscall":"open"}
+{"code":"ENOENT","errno":-4058,"level":"error","path":"C:\\Users\\Usuario\\Desktop\\CoderHouse\\Curso Backend\\server - copia\\src\\views\\layouts\\main.handlebars","syscall":"open"}

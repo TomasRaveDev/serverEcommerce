@@ -15,7 +15,7 @@ import { init as initPassport } from "./config/passport.config.js";
 import errorHandler from "./middleware/ErrorHandler.js"
 import emailRouter from "./routers/email.router.js";
 import cartRouter from "./routers/cartsDb.router.js";
-
+import indexRouter from "./routers/index.router.js";
 import productRouter from "./routers/productsDb.router.js";
 import userRouter from "./routers/user.router.js";
 import { __dirname } from "./utils.js";
@@ -69,7 +69,7 @@ initPassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", emailRouter);
+app.use("/",indexRouter, emailRouter);
 app.use("/api", productRouter, cartRouter, userRouter);
 
 app.use('/loggerTest', (req, res) => {

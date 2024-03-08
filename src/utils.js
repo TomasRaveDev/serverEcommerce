@@ -65,13 +65,13 @@ const storage = multer.diskStorage({
             case 'Identificacion':
             case 'Domicilio':
             case 'Estado de cuenta':
-                folderPath = path.join(process.cwd(), 'public/documents');
+                folderPath = path.join(process.cwd(), 'src/public/documents');
                 break;
             case 'avatar':
-                folderPath = path.join(process.cwd(), 'public/profile');
+                folderPath = path.join(process.cwd(), 'src/public/profile');
                 break;
             case 'products':
-                folderPath = path.join(process.cwd(), 'public/img');
+                folderPath = path.join(process.cwd(), 'src/public/img');
                 break;
             default:
                 throw new Error('Archivo incorrecto');
