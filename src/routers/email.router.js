@@ -103,7 +103,7 @@ router.post("/activacion", async (req, res, next) => {
     const { email, username } = req.body;
 
     const user = await userController.findUserByEmail(email);
-    const result = await emailService.sendEmail(
+    await emailService.sendEmail(
       email,
       username,
       `
