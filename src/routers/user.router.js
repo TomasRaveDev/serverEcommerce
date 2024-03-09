@@ -111,17 +111,18 @@ router.put("/users/:uid", passwordValidator, async (req, res, next) => {
   }
 });
 
-router.delete("/users/:uid", /* jwtAuth, */ deleteCartUser, async (req, res, next) => {
+router.delete("/users/:uid/:rid", /* jwtAuth, */ deleteCartUser, async (req, res, next) => {
   try {
-    const { uid } = req.params;
-    const user = await userController.getById({ _id: uid });
+    const { uid, rid } = req.params;
+    const user = await userController.getById(rid);
+    console.log(user);
     if(user.rol != 'admin'){
       return res.status(401).json({message:"Unauthorized"});
      }
     
     const result = await userController.deleteById(uid);
     
-    res.status(200).json(result);
+    res.status(200).json({message: "Usuario eliminado"});
   } catch (error) {
     req.logger.log('error', error);
     res.status(error.statusCode || 500).json({ message: error.message })
