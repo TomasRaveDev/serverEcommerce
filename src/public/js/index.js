@@ -12,7 +12,9 @@ function fetchProduct() {
   let pageNumber = parseInt(page.innerHTML, 10);
 
   function loadPage(pageNumber) {
-    fetch(`https://vengeful-rat-production.up.railway.app/api/products?limit=6&page=${pageNumber}`)
+    fetch(
+      `https://vengeful-rat-production.up.railway.app/api/products?limit=6&page=${pageNumber}`
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -112,50 +114,3 @@ function fetchProduct() {
   loadPage(pageNumber);
 } // Fin del fecth para traer productos
 fetchProduct();
-const logout = document
-  .getElementById("logout")
-  .addEventListener("click", () => {
-    localStorage.removeItem("uid");
-    localStorage.removeItem("user");
-  });
-
-function dialog() {
-
-  const socket = io();
-  const openDialogButton = document.getElementById("open-dialog-button");
-  const closeDialogButton = document.getElementById("close-dialog-button");
-  const dialog = document.getElementById("dialog");
-  const newMessages = document.getElementById("newMessages");
-
-  function updateLogMessage(messages) {
-    newMessages.innerText = "";
-    const messagesSlice = messages.slice(-4);
-    messagesSlice.forEach((msg) => {
-      const p = document.createElement("p");
-      p.innerText = `${msg.username}: ${msg.message}`;
-      newMessages.appendChild(p);
-    });
-  }
-
-  openDialogButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    dialog.classList.remove("hidden");
-  });
-  closeDialogButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    dialog.classList.add("hidden");
-  });
-
-  formDialog.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const message = document.getElementById("message").value;
-    socket.emit("new-message", { username, message });
-    formDialog.reset();
-  });
-
-  socket.on("notification", ({ messagesGlobal }) => {
-    updateLogMessage(messagesGlobal);
-  });
-}
-
-dialog();

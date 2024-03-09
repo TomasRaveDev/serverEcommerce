@@ -113,11 +113,12 @@ router.put("/users/:uid", passwordValidator, async (req, res, next) => {
 
 router.delete("/users/:uid", /* jwtAuth, */ deleteCartUser, async (req, res, next) => {
   try {
-    const {rol} = req.user;
-    if(rol != 'admin'){
+    const { uid } = req.params;
+    const user = await userController.getById(uid);
+    if(user.rol != 'admin'){
       return res.status(401).json({message:"Unauthorized"});
      }
-    const { uid } = req.params;
+    
     const result = await userController.deleteById(uid);
     
     res.status(200).json(result);
