@@ -10,15 +10,15 @@ El proyecto consiste en el desarrollo de un backend para una aplicación de ecom
 
 1. **Clonar el Repositorio**: Primero, clona este repositorio en tu máquina local utilizando el siguiente comando:
 
-    ```
-    git clone <https://github.com/TomyReiv/curso_Backend_Coderhouse.git>
-    ```
+   ```
+   git clone <https://github.com/TomyReiv/curso_Backend_Coderhouse.git>
+   ```
 
 2. **Instalar Dependencias**: Una vez clonado el repositorio, navega al directorio del proyecto y ejecuta el siguiente comando para instalar todas las dependencias necesarias:
 
-    ```
-    npm install
-    ```
+   ```
+   npm install
+   ```
 
 3. **Configurar Variables de Entorno**: El proyecto utiliza variables de entorno para la configuración. Copia el archivo `.env.example` y renómbralo como `.env`, luego configura las variables según sea necesario.
 
@@ -38,13 +38,15 @@ El servidor estará en funcionamiento en el puerto especificado en el archivo `.
 
 Puedes interactuar con la API utilizando herramientas como Postman o CURL. La documentación de la API está disponible en la ruta `/api-docs`.
 
-
 ## Notas Importantes
 
 - **Pruebas Integrales**: Para realizar las pruebas integrales, asegúrate de comentar las líneas señaladas en el código que pueden interferir con las pruebas.
-    `//jwtAuth en cada router`
-    `//Comentar para pasar los test de product`
-    `//fin`
+  `//jwtAuth en cada router`
+  `//Comentar para pasar los test de product`
+  `//fin`
 
 - **Eliminacion de usuarios inactivos**: Los usuarios inactivos se eliminan con la clase UserInactiveProcess que usar la funcion cron de node-cron. Esta programada para activarse cada 5min y elimina los usuarios inactivos despues de dos dias y cuanta con la opcin de prueba para inactivos luego de 5 minutos.
-    `//utils/deleteInactives.js`
+  `//utils/deleteInactives.js`
+
+  - **Front**: Las intereacciones con el front lo hice con angular y lo cargue a netlify como una app web. El admin es siempre el usuario ravetomas@gmail.com y su contraseña es 123456_.
+    `//https://fastidious-elf-0759fe.netlify.app`
