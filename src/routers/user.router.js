@@ -111,7 +111,7 @@ router.put("/users/:uid", passwordValidator, async (req, res, next) => {
   }
 });
 
-router.delete("/users/:uid", jwtAuth, deleteCartUser, async (req, res, next) => {
+router.delete("/users/:uid", /* jwtAuth, */ deleteCartUser, async (req, res, next) => {
   try {
     const {rol} = req.user;
     if(rol != 'admin'){

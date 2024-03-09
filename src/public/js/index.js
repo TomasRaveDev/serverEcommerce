@@ -12,7 +12,7 @@ function fetchProduct() {
   let pageNumber = parseInt(page.innerHTML, 10);
 
   function loadPage(pageNumber) {
-    fetch(`http://localhost:8080/api/products?limit=6&page=${pageNumber}`)
+    fetch(`https://vengeful-rat-production.up.railway.app/api/products?limit=6&page=${pageNumber}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -76,7 +76,7 @@ function fetchProduct() {
               items: [cartProductData],
             };
             try {
-              fetch("http://localhost:8080/api/cart", {
+              fetch("https://vengeful-rat-production.up.railway.app/api/cart", {
                 method: "post",
                 headers: {
                   "Content-Type": "application/json",

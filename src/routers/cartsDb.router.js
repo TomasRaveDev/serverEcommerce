@@ -145,7 +145,7 @@ router.delete("/cart/:cid/product/:pid", async (req, res, next) => {
   }
 });
 
-router.post("/cart/:cid/purchase", async (req, res, next) => {
+/* router.post("/cart/:cid/purchase", async (req, res, next) => {
   try {
     const { body } = req;
     const { cid } = req.params;
@@ -257,7 +257,7 @@ router.post("/cart/:cid/purchase", async (req, res, next) => {
     console.log(error);
     res.status(error.statusCode || 500).json({ message: error.message });
   }
-});
+}); */
 
 router.post("/cart/:cid/shop", async (req, res, next) => {
   try {
