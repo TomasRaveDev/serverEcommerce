@@ -42,6 +42,7 @@ export default class userController {
     try {
       await userService.updateById(uid, data);
       console.log("Usuario actualizado");
+      return {message: "Usuario actualizado"};
     } catch (error) {
       throw new Exception(error.message, error.status);
     }

@@ -8,6 +8,7 @@ import {
 import passport from "passport";
 import { deleteCartUser } from "../middleware/daleteCascade.js";
 import { uploader, jwtAuth, tokenGenerator, createHash, isValidPassword } from "../utils.js";
+import { config } from "../config/config.js";
 
 const router = Router();
 
@@ -110,7 +111,7 @@ router.put("/users/:uid", passwordValidator, async (req, res, next) => {
     res.status(error.statusCode || 500).json({ message: error.message })
   }
 });
-
+//Agrego el id del usuario admin para validar.
 router.delete("/users/:uid/:rid", /* jwtAuth, */ deleteCartUser, async (req, res, next) => {
   try {
     const { uid, rid } = req.params;
@@ -128,11 +129,16 @@ router.delete("/users/:uid/:rid", /* jwtAuth, */ deleteCartUser, async (req, res
     res.status(error.statusCode || 500).json({ message: error.message })
   }
 });
-router.get("/logout", async (req, res, next) => {
+
+//Agrego el id del usuario que hace logout
+router.get("/users/logout/:id", async (req, res, next) => {
+
   try {
-    const { _id, username, lastname, email } = req.user;
-    await userController.updateById(_id, { last_connection: new Date() })
-    res.cookie("accessToken", "", { maxAge: -1 }).redirect("/login");
+    const {id} = req.params;
+    /* const { _id, username, lastname, email } = req.user; */
+    const result =  await userController.updateById({_id:id}, { last_connection: new Date() })
+    console.log(result);
+    res.cookie("accessToken", "", { maxAge: -1 }).json({ message: "Logout exitoso" });
   } catch (error) {
     req.logger.log('error', error);
     res.status(error.statusCode || 500).json({ message: error.message })
