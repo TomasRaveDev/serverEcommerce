@@ -49,6 +49,7 @@ router.get("/products/:pid",  async (req, res, next) => {
 router.post(
   "/products/:typeFile",
   uploader.single("file"),
+  jwtAuth,
   productValidator,
   validationErrorProduct,
   async (req, res, next) => {
@@ -117,7 +118,7 @@ router.post(
   }
 );
 
-router.put("/products/:pid", uploader.single("file"),/* jwtAuth, */ async (req, res, next) => {
+router.put("/products/:pid", uploader.single("file"), jwtAuth, async (req, res, next) => {
   try {
     const { pid } = req.params;
     const { body } = req;
@@ -166,7 +167,7 @@ router.put("/products/:pid", uploader.single("file"),/* jwtAuth, */ async (req, 
   }
 });
 
-router.delete("/products/:pid", /* jwtAuth, */ async (req, res, next) => {
+router.delete("/products/:pid", jwtAuth, async (req, res, next) => {
   try {
     const { pid } = req.params;
     //Comentar para pasar los test de product

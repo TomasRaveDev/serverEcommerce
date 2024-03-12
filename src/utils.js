@@ -120,43 +120,50 @@ export const tokenGeneratorPass = (user) =>{
 };
 
 export const jwtAuth = (req, res ,next) =>{
-    /* const {authorization: token} = req.headers; */
-    const token = req.signedCookies['accessToken'];
+    const { authorization: token } = req.headers; 
+    /* const token = req.signedCookies['accessToken']; */
     if(!token) throw new Exception('Unauthorized');
-    Jwt.verify(token, config.JwtSecret, async (error, payload)=>{
+    Jwt.verify(token.split(' ')[1], JWT_SECRET, async (error, payload)=>{
+
         if(error) throw new Exception('No authorized');
         req.user = await userModel.findById(payload.id);
         next();
     })
 }
 
-/* export const jwtAuthBear = (req, res, next) => {
-    const token = req.headers.authorization && req.headers.authorization.split(' ')[1]; 
+/* function jwtAuthBear(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) {
+      return res.status(403).json({ mensaje: 'Token no proporcionado' });
+    }
+  
+    jwt.verify(token.split(' ')[1], config.JwtSecret, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ mensaje: 'Token inválido' });
+      }
+      req.usuario = decoded;
+      next();
+    });
+  } */
+
+  export const jwtAuthBear = (req, res, next) => {
+    const token = req.headers['authorization'].split(' ')[1];
     
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized' }); 
     }
 
-    Jwt.verify(token, config.JwtSecret, async (error, payload) => {
-        if (error) {
-            console.log(error);
-            return res.status(401).json({ error: 'No authorized' });
+    console.log('Token recibido:', token); // Registro de depuración
+
+    Jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) {
+            console.error('Error al verificar el token:', err); // Registro de depuración
+            return res.status(401).json({ mensaje: 'Token inválido' });
         }
-        
-        try {
-            console.log(payload);
-            const user = await userModel.findById(payload.id);
-            if (!user) {
-                return res.status(401).json({ error: 'User not found' });
-            }
-            req.user = user;
-            next();
-        } catch (err) {
-            console.error('Error fetching user:', err);
-            return res.status(500).json({ error: 'Internal Server Error' });
-        }
+        req.usuario = decoded;
+        next();
     });
-}; */
+};  
 
 export const generateProduct = () => {
     return {

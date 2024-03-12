@@ -6,11 +6,13 @@ import productController from "../controllers/product.controller.js"; */
 import { config } from "../config/config.js";
 import Jwt from "jsonwebtoken";
 import emailService from "../services/email.service.js";
+import {jwtAuthBear, jwtAuth} from "../utils.js"
 
 const router = Router();
 
 router.get("/cart", async (req, res, next) => {
   try {
+   
     const { query = {} } = req;
     const cart = await cartController.get(query);
     res.status(200).json(cart);
@@ -37,7 +39,7 @@ router.get("/cartUser", async (req, res, next) => {
   }
 });
 
-router.get("/cart/:cid", async (req, res, next) => {
+router.get("/cart/:cid",jwtAuth, async (req, res, next) => {
   try {
     const { cid } = req.params;
     const cart = await cartController.getById({ _id: cid });

@@ -27,13 +27,14 @@ router.get("/users", async (req, res, next) => {
   }
 });
 
-router.get("/users/:uid", async (req, res, next) => {
+router.get("/users/:uid",  async (req, res, next) => {
   try {
     const { uid } = req.params;
     const users = await userController.getById({ _id: uid });
     if (!users) {
       return res.status(404).json({ message: "No user found" });
     }
+    
     res.status(200).json(users);
   } catch (error) {
     req.logger.log('error', error);
@@ -66,9 +67,10 @@ router.post(
       const email = req.user.email;
       const { _id, username, lastname } = req.user;
 
-      const userToken = await userController.findUserByEmail(email);
+      const user = await userController.findUserByEmail(email);
+     
+      const token = tokenGenerator(user);
 
-      const token = tokenGenerator(userToken);
       await userController.updateById(_id, { last_connection: new Date() })
       res
         .cookie("accessToken", token, {
@@ -77,7 +79,7 @@ router.post(
           signed: true,
         })
         .status(200)
-        .json(userToken);
+        .json({user, token});
     } catch (error) {
       console.log(error);
       res.status(error.statusCode || 500).json({ message: error.message });
@@ -90,6 +92,8 @@ router.put("/users/:uid", passwordValidator, async (req, res, next) => {
   try {
     const { uid } = req.params;
     const { body } = req;
+
+
     
     if(body.password){
       const password = createHash(body.password);
@@ -111,13 +115,14 @@ router.put("/users/:uid", passwordValidator, async (req, res, next) => {
     res.status(error.statusCode || 500).json({ message: error.message })
   }
 });
-//Agrego el id del usuario admin para validar.
-router.delete("/users/:uid/:rid", /* jwtAuth, */ deleteCartUser, async (req, res, next) => {
+
+router.delete("/users/:uid",  jwtAuth, deleteCartUser, async (req, res, next) => {
   try {
     const { uid, rid } = req.params;
-    const user = await userController.getById(rid);
-    console.log(user);
-    if(user.rol != 'admin'){
+    const { rol } = req.user
+    /* const user = await userController.getById(_id);
+    console.log(user); */
+    if(rol != 'admin'){
       return res.status(401).json({message:"Unauthorized"});
      }
     
@@ -130,12 +135,12 @@ router.delete("/users/:uid/:rid", /* jwtAuth, */ deleteCartUser, async (req, res
   }
 });
 
-//Agrego el id del usuario que hace logout
-router.get("/users/logout/:id", async (req, res, next) => {
+
+router.get("/users/logout/:id", jwtAuth, async (req, res, next) => {
 
   try {
     const {id} = req.params;
-    /* const { _id, username, lastname, email } = req.user; */
+    /* const { _id, username, lastname, email } = req.user;  */
     const result =  await userController.updateById({_id:id}, { last_connection: new Date() })
     console.log(result);
     res.cookie("accessToken", "", { maxAge: -1 }).json({ message: "Logout exitoso" });
