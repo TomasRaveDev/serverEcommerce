@@ -10,7 +10,7 @@ const loggerDev = winston.createLogger({
 const loggerProd = winston.createLogger({
     transports: [
         new winston.transports.Console({level: 'info'}),
-        new winston.transports.File({filename: 'error.logs', level:'error'})
+        /* new winston.transports.File({filename: 'error.logs', level:'error'}) */
     ]
 })
 

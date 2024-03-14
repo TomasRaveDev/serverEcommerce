@@ -146,7 +146,7 @@ export const jwtAuth = (req, res ,next) =>{
     });
   } */
 
-  export const jwtAuthBear = (req, res, next) => {
+/*   export const jwtAuthBear = (req, res, next) => {
     const token = req.headers['authorization'].split(' ')[1];
     
     if (!token) {
@@ -163,7 +163,7 @@ export const jwtAuth = (req, res ,next) =>{
         req.usuario = decoded;
         next();
     });
-};  
+};  */ 
 
 export const generateProduct = () => {
     return {

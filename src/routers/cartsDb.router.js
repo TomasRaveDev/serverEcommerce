@@ -6,7 +6,7 @@ import productController from "../controllers/product.controller.js"; */
 import { config } from "../config/config.js";
 import Jwt from "jsonwebtoken";
 import emailService from "../services/email.service.js";
-import {jwtAuthBear, jwtAuth} from "../utils.js"
+import { jwtAuth} from "../utils.js"
 
 const router = Router();
 
@@ -22,7 +22,7 @@ router.get("/cart", async (req, res, next) => {
   }
 });
 
-router.get("/cartUser", async (req, res, next) => {
+/* router.get("/cartUser", async (req, res, next) => {
   try {
     const token = req.signedCookies["accessToken"];
 
@@ -37,7 +37,7 @@ router.get("/cartUser", async (req, res, next) => {
     console.log(error);
     res.status(error.statusCode || 500).json({ message: error.message });
   }
-});
+}); */
 
 router.get("/cart/:cid",jwtAuth, async (req, res, next) => {
   try {

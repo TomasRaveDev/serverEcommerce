@@ -48,5 +48,5 @@ Puedes interactuar con la API utilizando herramientas como Postman o CURL. La do
 - **Eliminacion de usuarios inactivos**: Los usuarios inactivos se eliminan con la clase UserInactiveProcess que usar la funcion cron de node-cron. Esta programada para activarse cada 5min y elimina los usuarios inactivos despues de dos dias y cuanta con la opcin de prueba para inactivos luego de 5 minutos.
   `//utils/deleteInactives.js`
 
-  - **Front**: Las intereacciones con el front lo hice con angular y lo cargue a netlify como una app web. El admin es siempre el usuario ravetomas@gmail.com y su contraseña es 123456_. Por razones que no termino de comprender cada tanto se deje de visualizar las imagenes, pero al cargar un producto nuevo funciona correctamente.
+  - **Front**: Las intereacciones con el front lo hice con angular y lo cargue a netlify como una app web. Por razones que no termino de comprender cada tanto se deje de visualizar las imagenes, pero al cargar un producto nuevo funciona correctamente.
     `//https://fastidious-elf-0759fe.netlify.app`
